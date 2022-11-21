@@ -1,0 +1,20 @@
+version: '3'
+services:
+    tomcat:
+        image: tomcat:7.0.109
+        container_name: tomcat7
+        hostname: tomcat
+        ports:
+            - '8080:8080'
+        volumes:
+            #- './tomcat-users.xml:/opt/bitnami/tomcat/conf/tomcat-users.xml:rw'
+            #- './context.xml:/usr/local/tomcat/conf/Catalina/localhost/manager.xml:rw'
+            #- './context.xml:/usr/local/tomcat/conf/Catalina/localhost/host-manager.xml:rw'
+            - /mnt/tomcat7/webapps:/usr/local/tomcat/webapps
+            - /mnt/tomcat7/logs:/usr/local/tomcat/logs
+            # config timezone to set date and time from host
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+        restart: unless-stopped
+        environment:
+        - TZ=America/Sao_Paulo
